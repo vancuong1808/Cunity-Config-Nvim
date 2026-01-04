@@ -1,0 +1,30 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Vim/Neovim temporary files (in case your config writes them here)
+*.swp
+*.swo
+*.tmp
+*~
+
+# Neovim state (some setups store these under the config dir)
+shada/
+*.shada
+
+# Session files
+Session.vim
+Sessionx.vim
+sessions/
+
+# Undo/backup (only if configured to live inside this repo)
+undo/
+backup/
+
+# Local-only overrides (if you create them)
+.local.lua
+.local.vim
+
+# Lua language server cache (optional)
+.luarc.jsonc
