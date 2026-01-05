@@ -8,10 +8,12 @@ return {
   config = function()
     local lsp_common = require("helpers.lsp-common")
     local py = require("helpers.python")
+    local csharp = require("helpers.csharp")
     local capabilities = lsp_common.capabilities()
     local on_attach = lsp_common.on_attach()
 
     py.setup_commands()
+    csharp.setup_commands()
 
     local servers = {
       lua_ls = {

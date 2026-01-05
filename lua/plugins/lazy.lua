@@ -19,6 +19,7 @@ require("lazy").setup({
     require("plugins.lsp.mason-tool-installer"),
     require("plugins.lsp.lspconfig"),
     require("plugins.lsp.blink"),
+    require("plugins.lsp.csharp-ls"),
     require("plugins.lsp.roslyn"),
 
     require("plugins.utils.colorful-menu"),

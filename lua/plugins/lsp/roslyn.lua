@@ -41,7 +41,9 @@ return {
       },
     })
 
-    vim.lsp.enable("roslyn")
+    if vim.g.csharp_lsp_choice ~= "csharp_ls" then
+      vim.lsp.enable("roslyn")
+    end
 
     -- Refresh codelens when relevant (Roslyn supports it, but you must refresh).
     vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "BufWritePost" }, {
