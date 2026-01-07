@@ -8,6 +8,11 @@ opt.number = true --Hiện số dòng tuyệt đối
 opt.relativenumber = true --Hiện số dòng tương đối
 opt.cursorline = true --Highlight dòng hiện tại
 
+-- True color in terminal (important for modern themes + transparency look)
+if not vim.g.neovide then
+  opt.termguicolors = true
+end
+
 opt.expandtab = true --tab == space
 opt.shiftwidth = 4
 opt.tabstop = 4

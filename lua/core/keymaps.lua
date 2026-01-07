@@ -109,8 +109,7 @@ map("n", "<leader>uT", "<cmd>Themery<CR>")
 map("n", "<leader>jj", t.jumplist, { desc = "Jumplist" })
 map("n", "<leader>jm", t.marks, { desc = "Marks" })
 
--- Explorer keymap
-map("n", "<C-Tab>", "<cmd>NERDTreeToggle<cr>", { silent = true, desc = "Explorer (Nerd-tree)" })
+map("n", "<Tab>", ":NERDTreeToggle<CR>", { silent = true, desc = "Explorer toggle" })
 
 -- NeovideFocus
 map("n", "<leader>nf", "<cmd>NeovideFocus<CR>", {

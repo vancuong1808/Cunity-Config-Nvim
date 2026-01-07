@@ -1,0 +1,2 @@
+1
+C:\Users\ADMIN\AppData\Local\nvim\wezterm\bg\bg1.png

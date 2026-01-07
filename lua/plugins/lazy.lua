@@ -60,6 +60,10 @@ require("lazy").setup({
     require("plugins.ui.which-key"),
     require("plugins.ui.dashboard"),
     require("plugins.ui.lualine"),
+
+    -- Terminal-only animations (auto-disabled in Neovide)
+    require("plugins.ui.smear-cursor"),
+    require("plugins.utils.neoscroll"),
 }, {
     rocks = {
         enabled = false,

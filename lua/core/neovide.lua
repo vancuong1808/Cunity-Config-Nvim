@@ -1,5 +1,6 @@
 if vim.g.neovide then
-    vim.o.guifont = "JetBrainsMonoNL Nerd Font Propo:h10.5"
+    -- vim.o.guifont = "JetBrainsMonoNL Nerd Font Propo:h10.5"
+    vim.o.guifont = "Monofoki Nerd Font:h10.5"
     vim.opt.linespace = 0
     vim.g.neovide_scale_factor = 1.0 --Scale chữ mà 0 cần thay đổi kích cỡ font
 
