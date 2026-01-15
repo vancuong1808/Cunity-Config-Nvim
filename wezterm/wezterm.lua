@@ -3,6 +3,52 @@ local mux = wezterm.mux
 
 local config = wezterm.config_builder()
 
+local function which(exe)
+  if type(exe) ~= "string" or exe == "" then
+    return nil
+  end
+
+  -- WezTerm doesn't expose `wezterm.which()` in some versions.
+  -- Use a tiny shim that asks the OS to resolve PATH.
+  if wezterm.target_triple and wezterm.target_triple:find("windows") then
+    local ok, stdout, _ = wezterm.run_child_process({ "where", exe })
+    if ok and stdout and stdout ~= "" then
+      return stdout:match("([^\r\n]+)")
+    end
+    return nil
+  end
+
+  do
+    local ok, stdout, _ = wezterm.run_child_process({ "which", exe })
+    if ok and stdout and stdout ~= "" then
+      return stdout:match("([^\r\n]+)")
+    end
+  end
+
+  return nil
+end
+
+-- Default shell on Windows: prefer PowerShell 7 (pwsh) if installed.
+if wezterm.target_triple and wezterm.target_triple:find("windows") then
+  local pwsh = which("pwsh.exe") or which("pwsh")
+  local powershell = which("powershell.exe") or which("powershell")
+  local shell = pwsh or powershell
+  if shell then
+    config.default_prog = { shell, "-NoLogo" }
+
+    local menu = {}
+    if pwsh then
+      table.insert(menu, { label = "PowerShell (pwsh)", args = { pwsh, "-NoLogo" } })
+    end
+    if powershell then
+      table.insert(menu, { label = "Windows PowerShell", args = { powershell, "-NoLogo" } })
+    end
+    if #menu > 0 then
+      config.launch_menu = menu
+    end
+  end
+end
+
 local function env_truthy(name, default)
   local v = os.getenv(name)
   if v == nil or v == "" then
@@ -65,7 +111,7 @@ config.win32_system_backdrop = "Acrylic"
 -- Lower = more transparent
 -- Windows Terminal-like: set overall opacity to 0.70
 config.window_background_opacity = 0.30
-config.text_background_opacity = 0.80
+config.text_background_opacity = 0.85
 config.window_padding = {
     left = 0,
     right = 0,
@@ -147,8 +193,8 @@ config.color_schemes = {
 config.color_scheme = "NVIM-Mocha"
 
 config.inactive_pane_hsb = {
-  saturation = 0.70,
-  brightness = 0.70,
+  saturation = 0.60,
+  brightness = 0.60,
 }
 
 config.audible_bell = "Disabled"
@@ -295,7 +341,7 @@ apply_bg_overrides = function(window)
     {
       source = { File = bg_image },
       opacity = BG_OPACITY,
-      hsb = { brightness = 0.4, hue = 1.0, saturation = 1.0 },
+      hsb = { brightness = 0.1, hue = 1.0, saturation = 1.0 },
     },
   }
   window:set_config_overrides(overrides)

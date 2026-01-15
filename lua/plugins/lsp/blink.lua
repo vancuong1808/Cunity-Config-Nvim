@@ -103,7 +103,6 @@ return {
         default = {
             "copilot",
             "lsp",
-        "easy-dotnet",
             "path",
             "snippets",
             "buffer",
@@ -123,13 +122,6 @@ return {
                 end
                 return 0
               end,
-            },
-            ["easy-dotnet"] = {
-              name = "easy-dotnet",
-              enabled = true,
-              module = "easy-dotnet.completion.blink",
-              score_offset = 10000,
-              async = true,
             },
         },
     },

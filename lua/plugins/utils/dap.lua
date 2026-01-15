@@ -5,6 +5,10 @@ return {
     dependencies = {
       {
         "rcarriga/nvim-dap-ui",
+        dependencies = {
+          -- Required by nvim-dap-ui (otherwise it errors during setup)
+          "nvim-neotest/nvim-nio",
+        },
         config = function()
           require("dapui").setup({
             icons = { expanded = "▾", collapsed = "▸" },

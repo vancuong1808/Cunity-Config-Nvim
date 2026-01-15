@@ -29,18 +29,6 @@ return {
       vim.notify("No file explorer command found (Neotree/NERDTree)", vim.log.levels.WARN)
     end
 
-    local function open_projects()
-      local ok, telescope = pcall(require, "telescope")
-      if ok and telescope.extensions and telescope.extensions.projects and telescope.extensions.projects.projects then
-        telescope.extensions.projects.projects({})
-        return
-      end
-      vim.notify(
-        "Projects extension not available yet. Run :Lazy sync then restart Neovim.",
-        vim.log.levels.WARN
-      )
-    end
-
     local function open_leetcode()
       if vim.fn.exists(":Leet") == 2 then
         vim.cmd("Leet")
@@ -98,7 +86,6 @@ return {
     dashboard.section.buttons.val = {
       dashboard.button("y", "  Yazi", open_yazi),
       dashboard.button("e", "  Explorer", open_explorer),
-      dashboard.button("p", "󰏗  Projects", open_projects),
       dashboard.button("l", "󰈙  LeetCode", open_leetcode),
       dashboard.button("s", "🛒  Store", open_store),
       dashboard.button("L", "󰒲  Lazy", open_lazy),

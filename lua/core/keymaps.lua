@@ -13,12 +13,6 @@ map("n", "<leader>fo", t.oldfiles, { desc = "Recent files" })
 map("n", "<leader>fr", t.resume, { desc = "Resume last picker" })
 map("n", "<leader>fe", t.file_browser, { desc = "File browser" })
 map("n", "<leader>f/", t.current_buffer, { desc = "Search in buffer" })
-map("n", "<leader>fp", t.projects, { desc = "Projects" })
-map("n", "<leader>pp", t.projects, { desc = "Projects" })
-map("n", "<leader>pm", function()
-  t.projects({})
-  vim.notify("In Projects picker: press 'c'/'C' to add current project", vim.log.levels.INFO)
-end, { desc = "Projects (add current via c/C)" })
 
 -- Telescope: Git
 map("n", "<leader>gf", t.git_files, { desc = "Git files" })
@@ -36,10 +30,14 @@ map("n", "<leader>uM", t.man_pages, { desc = "Man pages" })
 map("n", "<leader>uP", t.pickers, { desc = "All pickers" })
 
 -- Docs (fast + pretty + up-to-date)
-map("n", "<leader>uD", "<cmd>DevDocsSearch<cr>", { desc = "DevDocs search" })
-map("n", "<leader>uN", "<cmd>DotnetLearnSearch<cr>", { desc = ".NET docs (Learn)" })
-map("n", "<leader>uY", function() docs.pydoc() end, { desc = "pydoc (cword)" })
 map("n", "<leader>uG", function() docs.godoc() end, { desc = "go doc (cword)" })
+
+-- Noice
+map("n", "<leader>nh", "<cmd>NoiceHistory<cr>", { desc = "Noice history" })
+map("n", "<leader>nl", "<cmd>NoiceLast<cr>", { desc = "Noice last" })
+map("n", "<leader>ne", "<cmd>NoiceErrors<cr>", { desc = "Noice errors" })
+map("n", "<leader>na", "<cmd>NoiceAll<cr>", { desc = "Noice all" })
+map("n", "<leader>nd", "<cmd>NoiceDismiss<cr>", { desc = "Noice dismiss" })
 
 -- Web endpoints navigator
 map("n", "<leader>ue", "<cmd>Endpoint<cr>", { desc = "Endpoints" })
@@ -95,19 +93,12 @@ map("n", "<leader>lW", t.diagnostics_warn, { desc = "Warnings only" })
 map("n", "<leader>lI", t.lsp_incoming_calls, { desc = "Incoming calls" })
 map("n", "<leader>lO", t.lsp_outgoing_calls, { desc = "Outgoing calls" })
 
--- Telescope: Treesitter
-map("n", "<leader>ts", t.treesitter, { desc = "Treesitter symbols" })
-
 -- Telescope: UI
 map("n", "<leader>ut", function()
     t.colorscheme()
     -- vim.cmd("autocmd FileType qf ++once call nvim_input(':cclose<cr>')") -- close quickfix list
 end, { desc = "Colorscheme preview" })
 map("n", "<leader>uT", "<cmd>Themery<CR>")
-
--- Telescope history
-map("n", "<leader>jj", t.jumplist, { desc = "Jumplist" })
-map("n", "<leader>jm", t.marks, { desc = "Marks" })
 
 map("n", "<Tab>", ":NERDTreeToggle<CR>", { silent = true, desc = "Explorer toggle" })
 
@@ -135,20 +126,45 @@ map("n", "<C-->", function() require("helpers.font")(-1) end)
 
 -- Buffers
 map("n", "bn", ":bnext<CR>", { desc = "Next buffer" })
-map("n", "bN", ":bprevious<CR>", { desc = "Previous buffer" })
+map("n", "bm", ":bprevious<CR>", { desc = "Previous buffer" })
 map("n", "bq", ":bdelete<CR>", { noremap = true, silent = true })
 
 -- Hien diagnostic co the xem error messages
 map("n", "<leader>de", vim.diagnostic.open_float, { desc = "Line diagnostics" })
 map("n", "<leader>dq", vim.diagnostic.setqflist)
 
--- Notify check
-map("n", "<leader>ne", "<cmd>Noice errors<cr>", { desc = "Noice Errors" })
-map("n", "<leader>nh", function()
-  require("telescope").extensions.noice.noice()
-end, { desc = "Noice history" })
-map("n", "<leader>nn", function()
-  require("telescope").extensions.notify.notify()
-end, { desc = "Notify history" })
-map("n", "<leader>nc", "<cmd>Telescope command_history<cr>", { desc = "Command history" })
+map("n", "<leader>cd",
+  function()
+    require("helpers.dotnet-cheatsheet").dotnet()
+  end, { desc = "Open .NET CLI cheatsheet" })
+
+-- .NET (mnemonic prefix under which-key group <leader>m)
+map("n", "<leader>mc", function()
+  require("helpers.dotnet-cheatsheet").dotnet()
+end, { desc = "Cheatsheet" })
+
+local function dotnet_cmd(args)
+  if vim.fn.exists(":Dotnet") ~= 2 then
+    vim.notify("easy-dotnet.nvim not available (:Dotnet)", vim.log.levels.WARN)
+    return
+  end
+  if args and args ~= "" then
+    vim.cmd("Dotnet " .. args)
+  else
+    vim.cmd("Dotnet")
+  end
+end
+
+map("n", "<leader>dn", function() dotnet_cmd("new") end, { desc = "Dotnet new" })
+map("n", "<leader>dr", function() dotnet_cmd("run") end, { desc = "Dotnet run" })
+map("n", "<leader>db", function() dotnet_cmd("build") end, { desc = "Dotnet build" })
+map("n", "<leader>dt", function() dotnet_cmd("test") end, { desc = "Dotnet test" })
+map("n", "<leader>da", function() dotnet_cmd("add package") end, { desc = "Dotnet add package" })
+
+map("n", "<leader>mn", function() dotnet_cmd("new") end, { desc = "New" })
+map("n", "<leader>mr", function() dotnet_cmd("run") end, { desc = "Run" })
+map("n", "<leader>mb", function() dotnet_cmd("build") end, { desc = "Build" })
+map("n", "<leader>mt", function() dotnet_cmd("test") end, { desc = "Test" })
+map("n", "<leader>ma", function() dotnet_cmd("add package") end, { desc = "Add package" })
+
 

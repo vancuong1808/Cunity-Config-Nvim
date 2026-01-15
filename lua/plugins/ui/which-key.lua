@@ -1,6 +1,6 @@
 return {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  event = "VimEnter",
   init = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 300
@@ -43,11 +43,13 @@ return {
     -- Register group names
     wk.add({
       { "<leader>f", group = "Find/Files" },
+      { "<leader>c", group = "Cheatsheets" },
       { "<leader>e", group = "Explorer" },
       { "<leader>g", group = "Git" },
       { "<leader>h", group = "Hunk" },
       { "<leader>l", group = "LSP" },
-      { "<leader>t", group = "Toggle/Treesitter" },
+      { "<leader>m", group = ".NET" },
+      { "<leader>t", group = "Toggle" },
       { "<leader>u", group = "UI/Utils" },
       { "<leader>n", group = "Notify/Noice" },
       { "<leader>j", group = "Jump" },

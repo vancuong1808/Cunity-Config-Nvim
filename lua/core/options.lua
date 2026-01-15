@@ -70,3 +70,26 @@ vim.diagnostic.config({
     source = "always",
   },
 })
+
+-- Windows: prefer PowerShell (pwsh) as default shell for :terminal / :!.
+if vim.fn.has("win32") == 1 then
+  local shell
+  if vim.fn.executable("pwsh") == 1 then
+    shell = "pwsh"
+  elseif vim.fn.executable("pwsh.exe") == 1 then
+    shell = "pwsh.exe"
+  elseif vim.fn.executable("powershell") == 1 then
+    shell = "powershell"
+  elseif vim.fn.executable("powershell.exe") == 1 then
+    shell = "powershell.exe"
+  end
+
+  if shell then
+    opt.shell = shell
+    opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+    opt.shellquote = ""
+    opt.shellxquote = ""
+    opt.shellredir = "| Out-File -Encoding UTF8 %s"
+    opt.shellpipe = "| Out-File -Encoding UTF8 %s"
+  end
+end

@@ -1,11 +1,9 @@
-
 return {
   "nvim-telescope/telescope.nvim",
   branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     -- Project / navigation
-    "ahmedkhalf/project.nvim",
     -- UI
     "nvim-tree/nvim-web-devicons",
     "stevearc/dressing.nvim",
@@ -69,10 +67,10 @@ return {
       pickers = {
         find_files = {
           hidden = true,
-          layout_strategy = "ivy",
+          layout_strategy = "bottom_pane",
         },
         git_files = {
-            layout_strategy = "ivy",
+            layout_strategy = "bottom_pane",
         },
         lsp_references = { 
             theme = "dropdown", 
@@ -117,6 +115,5 @@ return {
     telescope.load_extension("file_browser")
     telescope.load_extension("ui-select")
     telescope.load_extension("noice")
-    telescope.load_extension("projects")
   end,
 }

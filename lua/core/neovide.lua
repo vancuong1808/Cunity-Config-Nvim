@@ -29,23 +29,6 @@ if vim.g.neovide then
     vim.g.neovide_cursor_hack = true
     vim.g.neovide_profiler = false --Hien thi GPU, performance
 
-    --Setup cho dùng ime
-    local function set_ime_cb(args)
-        local enable = args.event:match("Enter$") ~= nil
-        vim.g.neovide_input_ime = enable
-    end
-    local ime_group = vim.api.nvim_create_augroup("ime_event", { clear = true })
-    vim.api.nvim_create_autocmd({"InsertEnter", "InsertLeave"}, {
-        group = ime_group,
-        pattern = "*",
-        callback = set_ime_cb
-    })
-    vim.api.nvim_create_autocmd({"CmdlineEnter", "CmdlineLeave"}, {
-        group = ime_group,
-        pattern = "[\\/?]",
-        callback = set_ime_cb
-    })
-    
     vim.g.neovide_touch_deadzone = 6.0
     vim.g.neovide_touch_drag_timeout = 0.17
 

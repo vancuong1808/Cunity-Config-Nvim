@@ -34,11 +34,6 @@ function M.prompt(prompt, cb)
   end)
 end
 
-function M.search_devdocs(query)
-  local url = "https://devdocs.io/#q=" .. url_encode(query)
-  M.open_url(url)
-end
-
 function M.search_learn_dotnet(query)
   -- Keep it official + always up-to-date: Learn global search.
   local terms = "dotnet " .. query
@@ -54,23 +49,6 @@ local function floaterm_cmd(cmd)
 
   vim.cmd("terminal " .. cmd)
   return true
-end
-
-function M.pydoc(symbol)
-  symbol = symbol or vim.fn.expand("<cword>")
-  if not symbol or symbol == "" then
-    return
-  end
-
-  if vim.fn.executable("python") == 1 then
-    return floaterm_cmd("python -m pydoc " .. vim.fn.shellescape(symbol))
-  end
-
-  if vim.fn.executable("py") == 1 then
-    return floaterm_cmd("py -m pydoc " .. vim.fn.shellescape(symbol))
-  end
-
-  vim.notify("python/py not found in PATH (needed for pydoc)", vim.log.levels.WARN)
 end
 
 function M.godoc(symbol)
@@ -89,19 +67,6 @@ function M.godoc(symbol)
 end
 
 function M.setup_commands()
-  vim.api.nvim_create_user_command("DevDocsSearch", function()
-    M.prompt("DevDocs search: ", M.search_devdocs)
-  end, { desc = "Search DevDocs in browser" })
-
-  vim.api.nvim_create_user_command("DotnetLearnSearch", function()
-    M.prompt(".NET (Learn) search: ", M.search_learn_dotnet)
-  end, { desc = "Search Microsoft Learn (.NET) in browser" })
-
-  vim.api.nvim_create_user_command("PyDoc", function(opts)
-    local arg = opts.args ~= "" and opts.args or nil
-    M.pydoc(arg)
-  end, { desc = "Run pydoc for symbol", nargs = "?" })
-
   vim.api.nvim_create_user_command("GoDoc", function(opts)
     local arg = opts.args ~= "" and opts.args or nil
     M.godoc(arg)

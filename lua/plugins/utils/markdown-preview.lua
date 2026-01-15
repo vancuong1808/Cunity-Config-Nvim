@@ -4,7 +4,8 @@ return {
   ft = { "markdown" },
   build = function() vim.fn["mkdp#util#install"]() end,
   keys = {
-    { "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
+    -- NOTE: <leader>mp is reserved for .NET (easy-dotnet.nvim) project view.
+    { "<leader>um", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
   },
   config = function()
     vim.g.mkdp_auto_start = 0

@@ -45,6 +45,7 @@ require("lazy").setup({
     require("plugins.utils.store"),
     require("plugins.utils.endpoint"),
     require("plugins.utils.easy-dotnet"),
+    require("plugins.utils.neonuget"),
     require("plugins.utils.lazygit"),
     require("plugins.utils.dadbod"),
     require("plugins.utils.yazi"),

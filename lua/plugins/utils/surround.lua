@@ -1,21 +1,25 @@
 return {
-  "kylechui/nvim-surround",
-  version = "*",
+  "echasnovski/mini.surround",
+  version = false,
   event = "VeryLazy",
   config = function()
-    require("nvim-surround").setup({
-      keymaps = {
-        insert = "<C-g>s",
-        insert_line = "<C-g>S",
-        normal = "ys",
-        normal_cur = "yss",
-        normal_line = "yS",
-        normal_cur_line = "ySS",
-        visual = "S",
-        visual_line = "gS",
-        delete = "ds",
-        change = "cs",
-        change_line = "cS",
+    require("mini.surround").setup({
+      -- Use classic, easy-to-remember mappings:
+      -- sa = add, sd = delete, sr = replace
+      mappings = {
+        add = "sa",
+        delete = "sd",
+        replace = "sr",
+
+        -- Optional but handy:
+        find = "sf",
+        find_left = "sF",
+        highlight = "sh",
+        update_n_lines = "sn",
+
+        -- Disable default suffixes to keep it predictable
+        suffix_last = "",
+        suffix_next = "",
       },
     })
   end,
